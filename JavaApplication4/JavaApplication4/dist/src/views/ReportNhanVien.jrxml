@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="maNhanVien" class="java.lang.Long"/>
+	<field name="tenNhanVien" class="java.lang.String"/>
+	<field name="gioiTinh" class="java.lang.String"/>
+	<field name="namSinh" class="java.lang.String"/>
+	<field name="image" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="116" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="17" width="435" height="52" forecolor="#FF9900"/>
+				<textElement>
+					<font size="36" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SOUL SPECTRUM SHOP]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="115" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="161" y="69" width="222" height="46"/>
+				<textElement>
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thẻ Nhân Viên]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="261" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="7" y="15" width="171" height="177"/>
+				<imageExpression><![CDATA[$F{image}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="194" y="15" width="148" height="34"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã Nhân Viên:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="62" width="148" height="34"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên Nhân Viên:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="109" width="148" height="34"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Giới Tính:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="158" width="148" height="34"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Năm Sinh:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="363" y="15" width="178" height="34"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{maNhanVien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="62" width="178" height="34"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tenNhanVien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="109" width="178" height="34"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gioiTinh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="158" width="178" height="34"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namSinh}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="210" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="211"/>
+			</line>
+			<line>
+				<reportElement x="554" y="0" width="1" height="211"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="155" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

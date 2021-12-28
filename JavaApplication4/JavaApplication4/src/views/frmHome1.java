@@ -1,0 +1,358 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package views;
+
+import controller.CTHDBanHangXLDL;
+import controller.DAO;
+import controller.HDBanHangXLDL;
+import controller.SanPhamXLDL;
+import controller.ThongKeXLDL;
+import java.awt.Color;
+import java.awt.Image;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import model.Chitiethdbh;
+import model.TblHoadonbanhang;
+import model.TblSanpham;
+import model.thongke;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import static views.frmChitietbanhang.maHDBH;
+
+/**
+ *
+ * @author Thang
+ */
+public class frmHome1 extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form frmHome1
+     */
+    HDBanHangXLDL BHDL;
+    SanPhamXLDL SPDL;
+    ThongKeXLDL TKDL;
+    DefaultTableModel table;
+    DAO dao;
+    CTHDBanHangXLDL ctbhDL;
+
+    public frmHome1() {
+        initComponents();
+        BHDL = new HDBanHangXLDL();
+        SPDL = new SanPhamXLDL();
+        TKDL = new ThongKeXLDL();
+        ctbhDL = new CTHDBanHangXLDL();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        ui.setNorthPane(null);
+        icon();
+        loadnv();
+        loadnv1();
+        loadnv2();
+        thongkedoanhthu();
+    }
+
+    void loadnv() {
+
+        ArrayList<TblHoadonbanhang> list = new ArrayList();
+        list.clear();
+        try {
+            double tongtien = 0;
+            list = TKDL.getThongKeTC();
+            for (TblHoadonbanhang nv : list) {
+
+                tongtien += nv.getTongTien();
+            }
+            lblDoanhThu.setText(tongtien + " VND");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.toString());
+        }
+    }
+
+    void thongkedoanhthu(){
+       ArrayList<thongke> list= new ArrayList<>();
+        try {
+            list=BHDL.thongKe();  
+            DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+            for(thongke item : list){
+                  dcd.setValue(item.getDoanhThu(), item.getTenDoanhThu(), item.getThang());
+            }
+          JFreeChart jcChart= ChartFactory.createBarChart("Doanh thu","Tháng","Doanh thu", dcd, PlotOrientation.VERTICAL, true, true, false);
+          CategoryPlot plot= jcChart.getCategoryPlot();
+          plot.setRangeGridlinePaint(Color.BLACK);
+          ChartFrame chartFrame= new ChartFrame("Hóa Đơn ",jcChart,true);
+          ChartPanel chartPanel= new ChartPanel(jcChart);
+          pnlDT.removeAll();
+          pnlDT.add(chartPanel);
+          pnlDT.updateUI();            
+        } catch (SQLException ex) {
+            Logger.getLogger(frmHome1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+
+    void loadnv1() {
+
+        ArrayList<TblSanpham> list = new ArrayList();
+        list.clear();
+        try {
+            double tongtien = 0;
+            list = SPDL.getListSLSP();
+            for (TblSanpham nv : list) {
+
+                tongtien += nv.getSLTon();
+            }
+            lblSanPham.setText(tongtien + " Tồn");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.toString());
+        }
+    }
+
+    void loadnv2() {
+
+        ArrayList<TblSanpham> list = new ArrayList();
+        list.clear();
+        try {
+            list = SPDL.getListSP();
+            lbl.setText(list.size() + " Mục");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.toString());
+        }
+    }
+
+    void icon() {
+        ImageIcon icon3 = new ImageIcon("src\\img\\2.png");
+        Image image3 = icon3.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
+        lb1.setIcon(new ImageIcon(image3));
+
+        ImageIcon icon = new ImageIcon("src\\img\\4.png");
+        Image image = icon.getImage().getScaledInstance(120, 80, Image.SCALE_SMOOTH);
+        lb2.setIcon(new ImageIcon(image));
+
+        ImageIcon icon2 = new ImageIcon("src\\img\\coin.png");
+        Image image2 = icon2.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        lb3.setIcon(new ImageIcon(image2));
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        PanelHome = new javax.swing.JPanel();
+        pnlTongdonhang = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lb1 = new javax.swing.JLabel();
+        lbl = new javax.swing.JLabel();
+        pnlSoluongmathang = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        lb2 = new javax.swing.JLabel();
+        lblSanPham = new javax.swing.JLabel();
+        pnlLoinhuan = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        lb3 = new javax.swing.JLabel();
+        lblDoanhThu = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        pnlDT = new javax.swing.JPanel();
+
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelHome.setBackground(new java.awt.Color(255, 255, 255));
+        PanelHome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlTongdonhang.setBackground(new java.awt.Color(255, 153, 0));
+        pnlTongdonhang.setForeground(new java.awt.Color(0, 255, 0));
+        pnlTongdonhang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlTongdonhangMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlTongdonhangMouseExited(evt);
+            }
+        });
+        pnlTongdonhang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Tổng Số Mặt Hàng");
+        pnlTongdonhang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 177, -1, 27));
+
+        lb1.setText("jLabel10");
+        pnlTongdonhang.add(lb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 93, 74, 77));
+
+        lbl.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lbl.setForeground(new java.awt.Color(255, 255, 255));
+        lbl.setText("jLabel1");
+        pnlTongdonhang.add(lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        PanelHome.add(pnlTongdonhang, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 400, 230));
+
+        pnlSoluongmathang.setBackground(new java.awt.Color(255, 153, 0));
+        pnlSoluongmathang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlSoluongmathangMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlSoluongmathangMouseExited(evt);
+            }
+        });
+        pnlSoluongmathang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Số Lượng Hàng Tồn");
+        pnlSoluongmathang.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 172, -1, 27));
+
+        lb2.setText("jLabel10");
+        pnlSoluongmathang.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 94, 74, 77));
+
+        lblSanPham.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblSanPham.setForeground(new java.awt.Color(255, 255, 255));
+        lblSanPham.setText("jLabel1");
+        pnlSoluongmathang.add(lblSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        PanelHome.add(pnlSoluongmathang, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 400, 230));
+
+        pnlLoinhuan.setBackground(new java.awt.Color(255, 153, 0));
+        pnlLoinhuan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlLoinhuanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlLoinhuanMouseExited(evt);
+            }
+        });
+        pnlLoinhuan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Doanh Thu");
+        pnlLoinhuan.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 172, -1, 27));
+
+        lb3.setText("jLabel10");
+        pnlLoinhuan.add(lb3, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 92, 69, 73));
+
+        lblDoanhThu.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
+        lblDoanhThu.setText("jLabel1");
+        pnlLoinhuan.add(lblDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        PanelHome.add(pnlLoinhuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 60, 400, 230));
+
+        jPanel10.setBackground(new java.awt.Color(255, 153, 0));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        PanelHome.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 370, -1, -1));
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel9.setText("Biểu Đồ Thống Kê");
+        PanelHome.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, 330, -1));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+
+        pnlDT.setLayout(new javax.swing.BoxLayout(pnlDT, javax.swing.BoxLayout.LINE_AXIS));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlDT, javax.swing.GroupLayout.DEFAULT_SIZE, 1580, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlDT, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+        );
+
+        PanelHome.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 1580, 570));
+
+        getContentPane().add(PanelHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 1070));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void pnlTongdonhangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTongdonhangMouseEntered
+        // TODO add your handling code here:
+        pnlTongdonhang.setBackground(Color.black);
+    }//GEN-LAST:event_pnlTongdonhangMouseEntered
+
+    private void pnlTongdonhangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTongdonhangMouseExited
+        // TODO add your handling code here:
+        Color organ = new Color(255, 153, 0);
+        pnlTongdonhang.setBackground(organ);
+    }//GEN-LAST:event_pnlTongdonhangMouseExited
+
+    private void pnlSoluongmathangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlSoluongmathangMouseEntered
+        // TODO add your handling code here:
+        pnlSoluongmathang.setBackground(Color.black);
+    }//GEN-LAST:event_pnlSoluongmathangMouseEntered
+
+    private void pnlSoluongmathangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlSoluongmathangMouseExited
+        // TODO add your handling code here:
+        Color organ = new Color(255, 153, 0);
+        pnlSoluongmathang.setBackground(organ);
+    }//GEN-LAST:event_pnlSoluongmathangMouseExited
+
+    private void pnlLoinhuanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLoinhuanMouseEntered
+        // TODO add your handling code here:
+        pnlLoinhuan.setBackground(Color.black);
+    }//GEN-LAST:event_pnlLoinhuanMouseEntered
+
+    private void pnlLoinhuanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLoinhuanMouseExited
+        // TODO add your handling code here:
+        Color organ = new Color(255, 153, 0);
+        pnlLoinhuan.setBackground(organ);
+    }//GEN-LAST:event_pnlLoinhuanMouseExited
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelHome;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JLabel lb1;
+    private javax.swing.JLabel lb2;
+    private javax.swing.JLabel lb3;
+    private javax.swing.JLabel lbl;
+    private javax.swing.JLabel lblDoanhThu;
+    private javax.swing.JLabel lblSanPham;
+    private javax.swing.JPanel pnlDT;
+    private javax.swing.JPanel pnlLoinhuan;
+    private javax.swing.JPanel pnlSoluongmathang;
+    private javax.swing.JPanel pnlTongdonhang;
+    // End of variables declaration//GEN-END:variables
+}
